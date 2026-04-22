@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -e
+
+# Create state directory
+mkdir -p /var/lib/bat-limit
+touch /var/lib/bat-limit/last_limit
+chmod 644 /var/lib/bat-limit/last_limit
+
+# Install systemd service
+cat <<EOF > /etc/systemd/system/bat-limit.service
+[Unit]
+Description=Restore battery charge limit
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c '[ -s /var/lib/bat-limit/last_limit ] && /usr/local/bin/batctrl -\$(cat /var/lib/bat-limit/last_limit)'
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable service
+systemctl daemon-reload
+systemctl enable bat-limit.service
+
+exit 0
