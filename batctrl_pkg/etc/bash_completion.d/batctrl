@@ -1,0 +1,12 @@
+# Bash completion for batctl
+_batctl_completions()
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    opts="-60 -70 -80 -90 -100 --current --toggle"
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+}
+complete -F _batctl_completions batctl
+
