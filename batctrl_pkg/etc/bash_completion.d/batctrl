@@ -1,5 +1,5 @@
 # Bash completion for batctl
-_batctl_completions()
+_batctrl_completions()
 {
     local cur prev opts
     COMPREPLY=()
@@ -8,5 +8,5 @@ _batctl_completions()
     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
     return 0
 }
-complete -F _batctl_completions batctl
+complete -F _batctrl_completions batctrl
 
