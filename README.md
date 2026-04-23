@@ -3,7 +3,7 @@
 A lightweight Linux CLI utility to control battery charge limits (e.g. 60%–100%), persist settings across reboot, and restore state automatically using systemd.
 
 Designed for systems that expose:
-    `/sys/class/power_supply/BAT*/charge_control_end_threshold`
+  -  `/sys/class/power_supply/BAT*/charge_control_end_threshold`
 
 ---
 
@@ -33,3 +33,78 @@ Designed for systems that expose:
 
 ```bash
 sudo dpkg -i batctrl_1.0.0.deb
+```
+Fix dependencies if needed:
+```bash
+sudo apt-get install -f
+```
+## 🧠 Usage
+
+### Set battery limit
+
+conducted in increments of 10
+```bash
+sudo batctrl -60
+sudo batctrl -70
+sudo batctrl -80
+```
+
+### Show current limit
+
+```bash
+sudo batctrl --current
+# or
+
+sudo batctrl -c
+```
+
+### Toggle between 80% <---> 100%
+
+```bash
+sudo batctrl --toggle
+# or
+
+sudo batctrl -t
+```
+### Help
+
+```bash
+batctrl --help
+```
+
+## 🔁 Persistence
+
+The last selected battery limit is stored in:
+- `/var/lib/bat-limit/last_limit`
+
+On reboot, a systemd service automatically restores it:
+- `bat-limit.service`
+
+## ⚙️ systemd Service
+
+Installed at:
+- `/etc/systemd/system/bat-limit.service`
+
+Enable manually (if needed):
+- `sudo systemctl enable bat-limit.service`
+- `sudo systemctl start bat-limit.service`
+
+Check status:
+- `systemctl status bat-limit.service`
+
+## 📁 Project Structure
+
+```bash
+batctrl/
+├── DEBIAN/
+│   ├── control
+│   ├── postinst
+│   ├── prerm
+├── usr/
+│   └── local/
+│       └── bin/
+│           └── batctrl
+├── etc/
+│   └── bash_completion.d/
+│         └── batctrl
+```
