@@ -1,4 +1,4 @@
-Package: batctl
+Package: batctrl
 Version: 1.0.0
 Section: utils
 Priority: optional
