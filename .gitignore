@@ -1,3 +1,6 @@
+# Build artifacts
+*.deb
+
 # Claude Code artifacts
 session-log.md
 task_plan.md
