@@ -5,4 +5,4 @@ Priority: optional
 Architecture: all
 Maintainer: K0d3x 8its <k0d3x8its@gmail.com>
 Description: Battery charge limit CLI tool
-  A light weight CLI utility to control batter charge thresholds, persist values across reboots, and restore via systemd.
+  A light weight CLI utility to control battery charge thresholds, persist values across reboots, and restore via systemd.
