@@ -32,7 +32,7 @@ Designed for systems that expose:
 ## 📦 Installation (Debian package)
 
 ```bash
-sudo dpkg -i batctrl_1.0.0.deb
+sudo dpkg -i batctrl_v1.0.0_beta.deb
 ```
 Fix dependencies if needed:
 ```bash
