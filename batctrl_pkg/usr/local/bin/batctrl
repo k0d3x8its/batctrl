@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ----------------------------------------
-# batctrl- Battery charge limit CLI utility
+# batctrl - Battery charge limit CLI utility
 # Features:
 # - Set: -60|-70|-80|-90|-100
 # - --current
@@ -9,10 +9,10 @@
 # - Persist last value across reboot
 # ----------------------------------------
 
-# set -e  # Fail fast on errors
+set -e  # Fail fast on errors
 
 # ---- REQUIRE ROOT ----
-if [[ "$EUID" -ne 0 ]]; then
+if [[ "$(id -u)" -ne 0 ]]; then
   echo "Error: batctrl must be run as root."
   echo "Usage: sudo batctrl --current"
   exit 1
@@ -22,14 +22,14 @@ fi
 STATE_DIR="/var/lib/bat-limit"
 STATE_FILE="$STATE_DIR/last_limit"
 
-# Assume postint already created these
+# Assume postinst already created these
 if [[ ! -f "$STATE_FILE" ]]; then
   echo "State file missing. Reinstall package."
   exit 1
 fi
 
 # ---- AUTO-DETECT BATTERY ----
-BATTERY_DIR=$(ls /sys/class/power_supply/ | grep -E '^BAT' | head -n1)
+BATTERY_DIR=$(find /sys/class/power_supply/ -maxdepth 1 -name 'BAT*' -printf '%f\n' | head -n1)
 
 if [[ -z "$BATTERY_DIR" ]]; then
     echo "No battery found."
