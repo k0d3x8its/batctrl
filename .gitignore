@@ -1,0 +1,7 @@
+# Claude Code artifacts
+session-log.md
+task_plan.md
+findings.md
+progress.md
+.claude/plugins/
+.claude/skills/
