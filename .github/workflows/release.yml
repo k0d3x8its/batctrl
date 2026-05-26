@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dpkg tools
+        run: sudo apt-get install -y dpkg-dev
+
+      - name: Set version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Update control version
+        run: sed -i "s/^Version:.*/Version: ${{ steps.version.outputs.VERSION }}/" batctrl_pkg/DEBIAN/control
+
+      - name: Set file permissions
+        run: |
+          chmod 755 batctrl_pkg/usr/local/bin/batctrl
+          chmod 755 batctrl_pkg/DEBIAN/postinst
+          chmod 755 batctrl_pkg/DEBIAN/prerm
+
+      - name: Build .deb
+        run: |
+          dpkg-deb --build batctrl_pkg batctrl_${{ github.ref_name }}_all.deb
+
+      - name: Create GitHub draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: batctrl_${{ github.ref_name }}_all.deb
+          name: batctrl ${{ github.ref_name }}
+          body: |
+            ## batctrl ${{ github.ref_name }}
+
+            See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for changes.
+
+            ### Install
+
+            ```bash
+            sudo dpkg -i batctrl_${{ github.ref_name }}_all.deb
+            ```

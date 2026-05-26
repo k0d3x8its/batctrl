@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+systemctl stop bat-limit.service || true
 systemctl disable bat-limit.service || true
 rm -f /etc/systemd/system/bat-limit.service
 systemctl daemon-reload
