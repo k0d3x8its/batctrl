@@ -1,5 +1,7 @@
 # batctrl ⚡
 
+[![Release CI](https://img.shields.io/github/actions/workflow/status/k0d3x8its/batctl/release.yml?style=flat&label=Release%20CI)](https://github.com/k0d3x8its/batctl/actions/workflows/release.yml)
+
 A lightweight Linux CLI utility to control battery charge limits (e.g. 60%–100%), persist settings across reboot, and restore state automatically using systemd.
 
 Designed for systems that expose:
