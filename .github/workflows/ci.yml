@@ -1,0 +1,25 @@
+name: CI
+
+# Runs on every push to main so the default branch always has a fresh,
+# real status run. The release workflow only triggers on tags, which left
+# the shields default-branch badge frozen on a stale failure — this gives
+# main a tracked, greenable workflow to point the badge at.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bash syntax check (bash -n)
+        run: |
+          bash -n batctrl_pkg/usr/local/bin/batctrl
+          bash -n batctrl_pkg/etc/bash_completion.d/batctrl
