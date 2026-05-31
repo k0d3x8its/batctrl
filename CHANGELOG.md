@@ -5,6 +5,26 @@
 
 ---
 
+## [1.0.0] - 2026-05-30
+
+### Added
+- ➕ CI release pipeline (`.github/workflows/release.yml`) — tag-triggered `.deb` build and GitHub draft release with artifact attached
+- ➕ Release CI status badge in `README.md`
+
+### Changed
+- ♻️ Battery auto-detection uses `find` instead of `ls | grep` — more reliable across kernel versions
+
+### Fixed
+- 🛠️ Fail fast on hardware write rejection via `set -e`
+- 🛠️ `prerm` now stops `bat-limit.service` before disabling — cleaner uninstall
+- 🛠️ Bash completion now completes `-h`, `-c`, `-t`
+- 🛠️ Corrected Debian package description
+
+### Verified
+- 🚀 Smoke-tested on real hardware (BAT0, `charge_control_end_threshold`): all set flags `-60/-70/-80/-90/-100`, `-c`, `-t`, `-h`, invalid-input rejection, state persistence, and reboot restore via `bat-limit.service` — 18/18 pass
+
+---
+
 ## [1.0.0-beta] - 2026-05-26
 
 ### Added
