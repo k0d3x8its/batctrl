@@ -1,2 +1,5 @@
 # Build artifacts
 *.deb
+
+# Release notes (generated output — not source)
+RELEASE-NOTES.md
