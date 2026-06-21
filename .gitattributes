@@ -1,0 +1,7 @@
+# git-crypt: root-anchored patterns (/ prefix = match only at repo root, not subdirs)
+# WARNING: never remove the / prefix — unanchored patterns encrypt files of the same name
+# in every subdirectory, breaking templates, test fixtures, and other unintended files.
+/KNOWLEDGE.md            filter=git-crypt diff=git-crypt
+/TODOS.md                filter=git-crypt diff=git-crypt
+/.memory/SESSION-LOG.md  filter=git-crypt diff=git-crypt
+/.work/*                 filter=git-crypt diff=git-crypt
